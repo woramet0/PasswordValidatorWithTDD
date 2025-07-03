@@ -1,19 +1,26 @@
 package lib;
 
 public class PasswordValidator {
+    @param password 
+    @return 
+    public static PasswordStrength validate(String password) {
 
-    /**
-     * คุณจะต้องเขียน Javadoc ที่สมบูรณ์ที่นี่ในอนาคต
-     * เพื่ออธิบายกฎการทำงานของเมธอด
-     */
-    // TODO: แก้ไข return type ของเมธอดนี้ให้ถูกต้อง
-    public static void validate(String password) { // Function Type ให้เป็น PasswordStrength 
-        
-        // ส่วนของ Implementation ที่คุณต้องเขียน
-        // ...
-        
-        int minLength = 8 // TODO: มีอะไรขาดหายไปที่บรรทัดนี้?
-        
-        return null ; // TODO: การคืนค่านี้ถูกต้องหรือไม่?
+        if (password == null || password.length() < 6) {
+            return PasswordStrength.INVALID;
+        }
+
+        int minLength = 8; 
+
+        boolean hasLetter = password.matches(".*[a-zA-Z].*");
+        boolean hasDigit = password.matches(".*[0-9].*");
+        boolean hasSymbol = password.matches(".*[^a-zA-Z0-9].*");
+
+        if (password.length() >= 10 && hasLetter && hasDigit && hasSymbol) {
+            return PasswordStrength.STRONG;
+        } else if (hasLetter && hasDigit) {
+            return PasswordStrength.MEDIUM;
+        } else {
+            return PasswordStrength.WEAK;
+        }
     }
 }
